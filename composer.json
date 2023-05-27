@@ -1,0 +1,21 @@
+{
+  "name": "bisix21/php-lessons-pro",
+  "authors": [
+    {
+      "name": "Bisix21",
+      "email": "bisix21@gmail.com"
+    }
+  ],
+  "require": {
+    "monolog/monolog": "3.*",
+    "ext-http": "*",
+    "larapack/dd": "1.*",
+    "diggphp/psr11": "*",
+    "illuminate/database": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bisix21\\src\\": "src/"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<?php
+
+use Bisix21\src\Classes\Divider;
+use Bisix21\src\Core\Config;
+use Bisix21\src\Core\DI\Container;
+use Bisix21\src\ORM\DataMapper;
+use Doctrine\DBAL\Exception as Exception;
+use Doctrine\ORM\Exception\MissingMappingDriverImplementation as missDriverAlias;
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+
+const ROOT = __DIR__ . "/../";
+require __DIR__ . "/../src/bootstrap.php";
+$services = Config::instance()->get("services");
+Container::getInstance($services);
+try {
+	/**
+	 * @var DataMapper $mapper
+	 */
+	$mapper = Container::getInstance()->get(DataMapper::class);
+	$mapper->connectToDB();
+
+	ConsoleRunner::run(
+		new SingleManagerProvider($mapper->getEM())
+	);
+} catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
+	Divider::printString($e->getMessage());
+} catch (Exception|missDriverAlias $e) {
+	Divider::printString($e->getMessage());
+}

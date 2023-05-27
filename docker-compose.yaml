@@ -1,0 +1,40 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: php_pro_nginx
+    build:
+      dockerfile: ./docker/configs/nginx/Dockerfile
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/configs/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./:/srv/src/
+    links:
+      - php
+
+  php:
+    build:
+      context: ./
+      dockerfile: ./docker/configs/php/Dockerfile
+    container_name: php_pro_php
+    restart: always
+    volumes:
+      - ./:/srv/src
+    expose:
+      - 9000
+    links:
+      - db_mysql
+
+  db_mysql:
+    image: mysql:latest
+    container_name: php_pro_mysql
+    ports:
+      - "13306:3306"
+    environment:
+      MYSQL_CONNECTION: db_mysql
+      MYSQL_ROOT_PASSWORD: root-pass
+      MYSQL_USER: Bisix21
+      MYSQL_DATABASE: php_pro
+      MYSQL_PASSWORD: password
