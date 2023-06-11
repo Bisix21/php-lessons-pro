@@ -1,6 +1,6 @@
 <?php
 
-namespace Bisix21\src\UrlShort\Entity;
+namespace Bisix21\src\UrlShort\ORM\Entity;
 
 use Bisix21\src\UrlShort\Entity\Repository\ShortRepository;
 use Doctrine\DBAL\Types\Types;

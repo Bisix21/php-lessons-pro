@@ -1,6 +1,6 @@
 <?php
 
-namespace Bisix21\src\ORM;
+namespace Bisix21\src\UrlShort\ORM;
 
 use Illuminate\Database\Capsule\Manager;
 

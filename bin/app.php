@@ -3,7 +3,7 @@
 use Bisix21\src\Core\Config;
 use Bisix21\src\Core\DI\Container;
 use Bisix21\src\Core\Handler;
-use Bisix21\src\UrlShort\Service\Divider;
+use Bisix21\src\UrlShort\Services\Printer;
 use Monolog\Logger;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -21,9 +21,9 @@ try {
 	/** @var Handler $handle */
 	$handle->handle();
 } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
-	Divider::printString($e->getMessage() . $e->getFile());
+	Printer::printString($e->getMessage() . $e->getFile());
 	$monolog->error($e->getMessage() . $e->getFile());
 } catch (InvalidArgumentException $argumentException) {
-	Divider::printString($argumentException->getMessage());
+	Printer::printString($argumentException->getMessage());
 	$monolog->info($argumentException->getMessage());
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Bisix21\src\UrlShort\Service;
+namespace Bisix21\src\UrlShort\Services;
 
-class Divider
+class Printer
 {
 	protected static string $symbol = "=";
-	protected static int $length = 0;
+	protected static int $length = 60;
 
 	public function __construct($symbol, $length)
 	{
@@ -14,6 +14,10 @@ class Divider
 	}
 
 	public static function printString(string $string): void
+	{
+		echo $string . "\n";
+	}
+	public static function printStringWithDivider(string $string): void
 	{
 		self::divider();
 		echo $string . "\n";
@@ -35,6 +39,19 @@ class Divider
 			self::noKey($data);
 			exit();
 		}
+		foreach ($data as $key => $value) {
+			echo $key . " => " . $value . "\n";
+		}
+		echo "\n";
+	}
+	public static function printArrayWithDivider(array $data, $key = true): void
+	{
+		if (!$key) {
+			self::divider();
+			self::noKey($data);
+			self::divider();
+			exit();
+		}
 		self::divider();
 		foreach ($data as $key => $value) {
 			echo $key . " => " . $value . "\n";
@@ -45,11 +62,9 @@ class Divider
 
 	protected static function noKey($data): void
 	{
-		self::divider();
 		foreach ($data as $value) {
 			echo $value . "\n";
 		}
-		self::divider();
 	}
 
 	public static function nextLine(): void

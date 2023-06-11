@@ -2,12 +2,12 @@
 
 namespace Bisix21\src\UrlShort\Commands;
 
-use Bisix21\src\Interface\CommandInterface;
 use Bisix21\src\UrlShort\Decode;
+use Bisix21\src\UrlShort\Interface\CommandInterface;
 use Bisix21\src\UrlShort\Repository\AR;
 use Bisix21\src\UrlShort\Repository\DM;
 use Bisix21\src\UrlShort\Repository\Files;
-use Bisix21\src\UrlShort\Service\Divider;
+use Bisix21\src\UrlShort\Services\Printer;
 use Bisix21\src\UrlShort\Services\Converter;
 use Bisix21\src\UrlShort\Services\Validator;
 
@@ -31,7 +31,7 @@ class DecodeCommand  implements CommandInterface
 	public function runAction(): void
 	{
 		$this->issetCodeInDB();
-		Divider::printString($this->decoder->decode($this->arguments->getArguments()));
+		Printer::printString($this->decoder->decode($this->arguments->getArguments()));
 	}
 
 	protected function issetCodeInDB(): void

@@ -3,9 +3,6 @@
 namespace Bisix21\src\UrlShort\Services;
 
 
-use Bisix21\src\UrlShort\Services\GetRequest;
-use Bisix21\src\UrlShort\Services\Validator;
-
 class Converter
 {
 	protected string $command;
@@ -22,6 +19,7 @@ class Converter
 	{
 		global $argv;
 		$this->command = "help";
+		$argv = array_slice($argv, 1);
 		if (!empty($argv)) {
 			$this->command = $this->prepareCommand($argv);
 		}
@@ -33,11 +31,8 @@ class Converter
 
 	protected function prepareCommand($dataForCommand): array|string
 	{
-		if (is_array($dataForCommand)) {
-			if (!empty($dataForCommand)) {
-				$dataForCommand = array_slice($dataForCommand, 1);
-				$this->validator->validateCommand($dataForCommand[0]);
-			}
+		if (!empty($dataForCommand)) {
+			$dataForCommand = $this->validator->validateCommand($dataForCommand[0]);
 		}
 		return $dataForCommand; //отримуємо команду}
 	}

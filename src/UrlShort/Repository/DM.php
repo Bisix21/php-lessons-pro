@@ -2,10 +2,10 @@
 
 namespace Bisix21\src\UrlShort\Repository;
 
-use Bisix21\src\Interface\DBInterface;
 use Bisix21\src\UrlShort\Decode;
 use Bisix21\src\UrlShort\Entity\Repository\ShortRepository;
 use Bisix21\src\UrlShort\Entity\Short;
+use Bisix21\src\UrlShort\Interface\DBInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use InvalidArgumentException;

@@ -2,23 +2,25 @@
 
 namespace Bisix21\src\UrlShort\Commands;
 
-use Bisix21\src\Classes\Divider;
-use Bisix21\src\Core\Converter;
-use Bisix21\src\Core\Validator;
-use Bisix21\src\Interface\CommandInterface;
+use Bisix21\src\Core\Config;
 use Bisix21\src\UrlShort\Encode;
+use Bisix21\src\UrlShort\Interface\CommandInterface;
+use Bisix21\src\UrlShort\Interface\IUrlEncoder;
 use Bisix21\src\UrlShort\Repository\AR;
 use Bisix21\src\UrlShort\Repository\DM;
 use Bisix21\src\UrlShort\Repository\Files;
+use Bisix21\src\UrlShort\Services\Printer;
+use Bisix21\src\UrlShort\Services\Converter;
+use Bisix21\src\UrlShort\Services\Validator;
 
-class EncodeCommand  implements CommandInterface
+class EncodeCommand implements CommandInterface, IUrlEncoder
 {
 
 	public function __construct(
-		protected Encode    $encode,
-		protected Converter $arguments,
-		protected DM|AR|Files  $record,
-		protected Validator $validator
+		protected Encode      $encode,
+		protected Converter   $arguments,
+		protected DM|AR|Files $record,
+		protected Validator   $validator
 	)
 	{
 	}
@@ -31,16 +33,11 @@ class EncodeCommand  implements CommandInterface
 		$this->saveAndPrint();
 	}
 
-	protected function encodeUrl(): string
-	{
-		return $this->encode->encode($this->arguments->getArguments());
-	}
-
 	protected function saveAndPrint()
 	{
-		$codeShort = $this->createArr($this->encodeUrl(), $this->arguments->getArguments());
+		$codeShort = $this->createArr($this->encode($this->arguments->getArguments()), $this->arguments->getArguments());
 		$this->record->saveToDb($codeShort);
-		Divider::printString($codeShort['code'] . " => " . $codeShort['url']);
+		Printer::printString($codeShort['code'] . " => " . $codeShort['url']);
 	}
 
 	protected function createArr(string $code, string $url): array
@@ -49,5 +46,15 @@ class EncodeCommand  implements CommandInterface
 			'code' => $code,
 			'url' => $url,
 		];
+	}
+
+	public function encode(string $url): string
+	{
+		return substr(md5($url), 0, $this->getLength());
+	}
+
+	protected function getLength(): int
+	{
+		return Config::instance()->get('config.length');
 	}
 }

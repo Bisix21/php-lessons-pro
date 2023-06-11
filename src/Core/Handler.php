@@ -2,7 +2,7 @@
 
 namespace Bisix21\src\Core;
 
-use Bisix21\src\ORM\ActiveRecord;
+use Bisix21\src\UrlShort\ORM\ActiveRecord;
 use Bisix21\src\UrlShort\Services\Converter;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bisix21\src\Interface;
+namespace Bisix21\src\UrlShort\Interface;
 
 interface DataBaseConnectionInterface
 {

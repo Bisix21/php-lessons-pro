@@ -2,7 +2,14 @@
 
 namespace Bisix21\src\UrlShort\ORM;
 
-use Bisix21\src\Interface\DataBaseConnectionInterface;
+use Bisix21\src\UrlShort\Interface\DataBaseConnectionInterface;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Exception;
+use Doctrine\ORM\Configuration;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Exception\MissingMappingDriverImplementation;
+use Doctrine\ORM\ORMSetup;
 
 class DataMapper implements DataBaseConnectionInterface
 {

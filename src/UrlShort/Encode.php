@@ -20,6 +20,6 @@ class Encode implements IUrlEncoder
 	 */
 	public function encode(string $url): string
 	{
-		 return substr( md5($url), 0 , $this->length);
+
 	}
 }
